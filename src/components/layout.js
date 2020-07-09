@@ -8,9 +8,11 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-
-import Header from "./header"
-import "./layout.css"
+import ThemeSwitcher from "./context/ThemeSwitcher"
+import styled from "styled-components"
+import NavBar from "./NavBar"
+import GlobalStyles from "../styles/Global"
+import "react-toggle/style.css"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -24,13 +26,13 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata.title} />
+    <ThemeSwitcher>
+      <NavBar />
       <div
         style={{
-          margin: `0 auto`,
+          margin: `10rem auto 0 auto`,
           maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
+          padding: `0 3rem`,
         }}
       >
         <main>{children}</main>
@@ -40,7 +42,7 @@ const Layout = ({ children }) => {
           <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>
       </div>
-    </>
+    </ThemeSwitcher>
   )
 }
 
