@@ -10,7 +10,7 @@ import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import ThemeSwitcher from "./context/ThemeSwitcher"
 import styled from "styled-components"
-import NavBar from "./NavBar"
+import NavBar from "./tools/NavBar"
 import GlobalStyles from "../styles/Global"
 import "react-toggle/style.css"
 

@@ -17,7 +17,7 @@ export default Contact
 const TextWrapper = styled.div``
 
 const StyledSection = styled.div`
-  height: 80vh;
+  min-height: 90vh;
   text-align: left;
   padding: 10rem 0 0 0;
 `

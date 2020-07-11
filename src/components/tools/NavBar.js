@@ -4,8 +4,8 @@ import React from "react"
 import styled from "styled-components"
 import { useSpring, animated, config } from "react-spring"
 import Brand from "./Brand"
-import { useThemeValue } from "./context/ThemeContext"
-import GlobalStyles from "../styles/Global"
+import { useThemeValue } from "../context/ThemeContext"
+import GlobalStyles from "../../styles/Global"
 import ThemeToggle from "./ThemeToggle"
 import { AnchorLink } from "gatsby-plugin-anchor-links"
 
@@ -26,9 +26,12 @@ const Navbar = props => {
 
   return (
     <>
-      <NavBar style={barAnimation}>
-        <FlexContainer>
+      <NavBar style={barAnimation} backgroundColor={theme.background}>
+        <FlexContainerBrand>
           <Brand />
+        </FlexContainerBrand>
+
+        <FlexContainer>
           <NavLinks style={linkAnimation}>
             <AnchorLink to="/#about" stripHash>
               About
@@ -42,14 +45,8 @@ const Navbar = props => {
             <AnchorLink to="/#contact" stripHash>
               Contact
             </AnchorLink>
-            <ThemeToggle
-              onChange={() =>
-                dispatch({
-                  type: "toggleTheme",
-                })
-              }
-            ></ThemeToggle>
           </NavLinks>
+          <ThemeToggle />
         </FlexContainer>
       </NavBar>
       <GlobalStyles theme={theme} />
@@ -61,31 +58,48 @@ export default Navbar
 
 const NavBar = styled(animated.nav)`
   position: fixed;
-  width: 100%;
+  display: flex;
   top: 0;
-  left: 0;
   z-index: 1;
   font-size: 1.4rem;
+  width: 100vw;
+  background-color: ${props => props.backgroundColor};
+`
+
+const FlexContainerBrand = styled.div`
+  display: flex;
+  padding: 0 2rem;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+  top: 0;
+  position: absolute;
+  left: 0;
 `
 
 const FlexContainer = styled.div`
-  max-width: 120rem;
   display: flex;
-  margin: auto;
   padding: 0 2rem;
   justify-content: space-between;
+  align-items: center;
   height: 5rem;
+  top: 0;
+  position: absolute;
+  right: 0;
+
+  & div {
+    display: inline-block;
+  }
 `
 
 const NavLinks = styled(animated.ul)`
   justify-self: end;
   list-style-type: none;
-  margin: auto 0;
 
   & a {
     text-transform: uppercase;
     font-weight: 600;
-    border-bottom: 1px solid transparent;
+    border-bottom: 2px solid transparent;
     margin: 0 1.5rem;
     transition: all 300ms linear 0s;
     text-decoration: none;
@@ -99,9 +113,5 @@ const NavLinks = styled(animated.ul)`
     @media (max-width: 768px) {
       display: none;
     }
-  }
-
-  & div {
-    margin: 0 1.5rem;
   }
 `

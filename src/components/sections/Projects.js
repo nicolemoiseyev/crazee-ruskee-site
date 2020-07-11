@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import Icon from "../icons/Icon"
 import ProjectCard from "../tools/ProjectCard"
+import { projects } from "../../data"
 
 const Projects = () => {
   return (
@@ -9,8 +10,11 @@ const Projects = () => {
       <TextWrapper>
         <h1>Projects</h1>
       </TextWrapper>
-      <ProjectCard title="Project A" />
-      <ProjectCard title="Project B" />
+      <ProjectsGrid>
+        {projects.map((proj, ind) => (
+          <ProjectCard key={ind} {...proj} />
+        ))}
+      </ProjectsGrid>
     </StyledSection>
   )
 }
@@ -20,7 +24,14 @@ export default Projects
 const TextWrapper = styled.div``
 
 const StyledSection = styled.div`
-  height: 80vh;
+  min-height: 80vh;
   text-align: left;
   padding: 10rem 0 0 0;
+`
+
+const ProjectsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 4rem;
+  padding: 2rem 0;
 `
