@@ -23,6 +23,7 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'Ubuntu', sans-serif;
     background-color: ${props => props.theme.background};
     color: ${props => props.theme.text};
+    transition: 0.2s;
   }
 
   h1 {

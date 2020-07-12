@@ -5,29 +5,22 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import ThemeSwitcher from "./context/ThemeSwitcher"
 import styled from "styled-components"
-import NavBar from "./tools/NavBar"
+import NavBar from "./tools/navigation/NavBar"
 import GlobalStyles from "../styles/Global"
 import "react-toggle/style.css"
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
+  const [navbarOpen, setNavbar] = useState(false)
+  const handleNavbar = () => setNavbar(!navbarOpen)
 
   return (
     <ThemeSwitcher>
-      <NavBar />
+      <NavBar navbarState={navbarOpen} handleNavbar={handleNavbar} />
       <div
         style={{
           margin: `10rem auto 0 auto`,

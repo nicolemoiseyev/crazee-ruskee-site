@@ -4,10 +4,13 @@ import React from "react"
 import styled from "styled-components"
 import { useSpring, animated, config } from "react-spring"
 import Brand from "./Brand"
-import { useThemeValue } from "../context/ThemeContext"
-import GlobalStyles from "../../styles/Global"
-import ThemeToggle from "./ThemeToggle"
+import { useThemeValue } from "../../context/ThemeContext"
 import { AnchorLink } from "gatsby-plugin-anchor-links"
+
+import GlobalStyles from "../../../styles/Global"
+import BurgerMenu from "./BurgerMenu"
+import CollapseMenu from "./CollapseMenu"
+import ThemeToggle from "./ThemeToggle"
 
 const Navbar = props => {
   const barAnimation = useSpring({
@@ -47,8 +50,20 @@ const Navbar = props => {
             </AnchorLink>
           </NavLinks>
           <ThemeToggle />
+          <BurgerWrapper>
+            <BurgerMenu
+              color={theme.text}
+              navbarState={props.navbarState}
+              handleNavbar={props.handleNavbar}
+            />
+          </BurgerWrapper>
         </FlexContainer>
       </NavBar>
+      <CollapseMenu
+        theme={theme}
+        navbarState={props.navbarState}
+        handleNavbar={props.handleNavbar}
+      />
       <GlobalStyles theme={theme} />
     </>
   )
@@ -60,11 +75,16 @@ const NavBar = styled(animated.nav)`
   position: fixed;
   display: flex;
   top: 0;
-  z-index: 1;
+  z-index: 20;
   font-size: 1.4rem;
   width: 100vw;
   background-color: ${props => props.backgroundColor};
-`
+  -webkit-transition: background-color 0.2s ease;
+  -moz-transition: background-color 0.2s ease;
+  -o-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+  height: 5rem;
+}`
 
 const FlexContainerBrand = styled.div`
   display: flex;
@@ -82,13 +102,20 @@ const FlexContainer = styled.div`
   padding: 0 2rem;
   justify-content: space-between;
   align-items: center;
-  height: 5rem;
+  height: 100%;
   top: 0;
   position: absolute;
   right: 0;
 
   & div {
     display: inline-block;
+    margin: 0 0 0 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    div {
+      margin: 0.5rem;
+    }
   }
 `
 
@@ -113,5 +140,12 @@ const NavLinks = styled(animated.ul)`
     @media (max-width: 768px) {
       display: none;
     }
+  }
+`
+
+const BurgerWrapper = styled.div`
+  margin: 0;
+  @media (min-width: 769px) {
+    display: none !important;
   }
 `

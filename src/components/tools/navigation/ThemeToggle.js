@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import styled from "styled-components"
-import { useThemeValue } from "../context/ThemeContext"
+import { useThemeValue } from "../../context/ThemeContext"
 
 const ThemeToggle = props => {
   const [{ theme }, dispatch] = useThemeValue()
@@ -11,7 +11,7 @@ const ThemeToggle = props => {
     })
 
   return (
-    <StyledToggle checked={theme.name === "LIGHT"}>
+    <StyledToggle checked={theme.name === "LIGHT"} theme={theme}>
       <input id={`react-switch-new`} type="checkbox" onChange={toggleTheme} />
       <label htmlFor={`react-switch-new`}>
         <span />
@@ -30,13 +30,12 @@ const StyledToggle = styled.div`
   }
 
   & label {
-    margin: 0;
     display: inline-block;
     align-items: center;
     cursor: pointer;
-    width: 50px;
-    height: 26px;
-    background-color: grey;
+    width: 46px;
+    height: 23px;
+    background-color: ${props => props.theme.text};
     border-radius: 100px;
     position: relative;
     transition: background-color 0.2s;
@@ -45,14 +44,14 @@ const StyledToggle = styled.div`
       content: "";
       position: absolute;
       top: 3px;
-      width: 20px;
-      height: 20px;
-      border-radius: 20px;
-      transition: 0.2s;
-      background: #fff;
+      width: 17px;
+      height: 17px;
+      border-radius: 17px;
+      transition: 0.3s;
+      background: ${props => props.theme.background};
       box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
       &:active {
-        width: 30px;
+        width: 20px;
       }
 
       left: ${props =>
